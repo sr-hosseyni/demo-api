@@ -120,12 +120,8 @@ CMD ["php-fpm"]
 # depends on the "php" stage above
 FROM caddy:${CADDY_VERSION}-builder-alpine AS api_platform_caddy_builder
 
-# install Mercure and Vulcain modules
-RUN xcaddy build \
-    --with github.com/dunglas/mercure \
-    --with github.com/dunglas/mercure/caddy \
-    --with github.com/dunglas/vulcain \
-    --with github.com/dunglas/vulcain/caddy
+# build
+RUN xcaddy build
 
 FROM caddy:${CADDY_VERSION} AS api_platform_caddy
 
