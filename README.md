@@ -46,6 +46,32 @@ It means that you can:
 
 ## Install
 
+## Setup Domain name
+```shell
+cp .env.example .env
+```
+edit .env file and set SERVER_NAME
+```dotenv
+SERVER_NAME=example.local
+```
+Also, you can config your db name and credentials.
+
+### Build and Start containers
+````shell
+docker-compose build --pull --no-cache
+docker-compose up -d
+````
+
+### Getting OS X to trust self-signed SSL certificates
+Set your os always trust to below certificate
+```shell
+docker-compose cp caddy:/data/caddy/certificates/local/example.local/example.local.crt /any/location/in/your/machine
+```
+See https://tosbourn.com/getting-os-x-to-trust-self-signed-ssl-certificates/
+
+### Set local host for dev
+sudo echo '127.0.0.1  example.local' >> /etc/hosts
+
 [Read the official "Getting Started" guide](https://api-platform.com/docs/distribution).
 
 ## Credits
