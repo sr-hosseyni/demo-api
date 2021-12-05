@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ApiResource]
 #[ORM\Index(columns: ["time"])]
 #[ORM\Entity]
 class Consent
