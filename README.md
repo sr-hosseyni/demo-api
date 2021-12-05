@@ -131,7 +131,7 @@ docker-compose exec php bin/phpunit
 ```
 
 
-
+[Doctrine Annotations for PHP 8.0](https://www.doctrine-project.org/projects/doctrine-orm/en/current/reference/attributes-reference.html)
 [Read the official "Getting Started" guide](https://api-platform.com/docs/distribution).
 
 ## Credits
