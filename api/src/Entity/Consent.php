@@ -7,6 +7,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeInterface;
 use DateTimeImmutable;
+use phpDocumentor\Reflection\DocBlock\Tags\Deprecated;
 
 #[ApiResource]
 #[ORM\Entity]
@@ -36,12 +37,15 @@ class Consent
     private Contract $contract;
 
     #[ORM\Column(type: 'uuid')]
+    #[ApiProperty(writable: false)]
     private string $createdBy;
 
     #[ORM\Column(type: 'datetime')]
+    #[ApiProperty(writable: false)]
     private DateTimeInterface $createdAt;
 
     #[ORM\Column(type: 'datetime')]
+    #[ApiProperty(writable: false)]
     private DateTimeInterface $updatedAt;
 
     public function getId(): ?int
