@@ -2,12 +2,20 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
+
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 use DateTimeInterface;
+use DateTimeImmutable;
 
 #[ApiResource]
 #[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
 class Contract
 {
     #[ORM\Id]
@@ -15,10 +23,8 @@ class Contract
     #[ORM\GeneratedValue]
     private int $id;
 
-    #[ORM\Column(type: 'guid')]
-    private string $createdBy;
-
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
     private string $companyName;
 
     #[ORM\Column(type: 'text', nullable: true)]
@@ -28,18 +34,23 @@ class Contract
     private ?string $phone;
 
     #[ORM\Column(type: 'datetime')]
+    #[Assert\NotBlank]
     private DateTimeInterface $contractStart;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
     private ?DateTimeInterface $contractEnd;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
     private string $consentRequiredOn;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
+    #[ApiFilter(NumericFilter::class)]
     private int $maxConsentDays;
 
     #[ORM\Column(type: 'boolean')]
+    #[Assert\NotBlank]
     private bool $mandatory;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -57,10 +68,16 @@ class Contract
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $programmaticName;
 
+    #[ORM\Column(type: 'guid')]
+    #[ApiProperty(writable: false)]
+    private string $createdBy;
+
     #[ORM\Column(type: 'datetime')]
+    #[ApiProperty(writable: false)]
     private DateTimeInterface $createdAt;
 
     #[ORM\Column(type: 'datetime')]
+    #[ApiProperty(writable: false)]
     private DateTimeInterface $updatedAt;
 
     public function getId(): ?int
@@ -258,5 +275,18 @@ class Contract
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $this->setCreatedAt(new DateTimeImmutable());
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function setUpdateAtValue(): void
+    {
+        $this->setUpdatedAt(new DateTimeImmutable());
     }
 }

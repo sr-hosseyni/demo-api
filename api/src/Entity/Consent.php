@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use DateTimeInterface;
+use DateTimeImmutable;
 
 #[ApiResource]
-#[ORM\Index(columns: ["time"])]
 #[ORM\Entity]
+#[ORM\Index(columns: ["time"])]
+#[ORM\HasLifecycleCallbacks]
 class Consent
 {
     #[ORM\Id]
@@ -28,14 +30,17 @@ class Consent
     #[ORM\Column(type: 'datetime')]
     private DateTimeInterface $time;
 
-    #[ORM\Column(type: 'datetime')]
-    private DateTimeInterface $createdAt;
+    #[ORM\ManyToOne(targetEntity: 'Contract', cascade: ["all"], fetch: "EAGER")]
+    private Contract $consentContract;
 
     #[ORM\Column(type: 'guid')]
     private string $createdBy;
 
-    #[ORM\ManyToOne(targetEntity: 'Contract', cascade: ["all"], fetch: "EAGER")]
-    private Contract $consentContract;
+    #[ORM\Column(type: 'datetime')]
+    private DateTimeInterface $createdAt;
+
+    #[ORM\Column(type: 'datetime')]
+    private DateTimeInterface $updatedAt;
 
     public function getId(): ?int
     {
@@ -107,9 +112,9 @@ class Consent
         return $this->createdBy;
     }
 
-    public function setCreatedBy(string $createdBy): self
+    public function setCreatedBy(string $guid): self
     {
-        $this->createdBy = $createdBy;
+        $this->createdBy = $guid;
 
         return $this;
     }
@@ -124,5 +129,37 @@ class Consent
         $this->consentContract = $consentContract;
 
         return $this;
+    }
+
+    /**
+     * @return DateTimeInterface
+     */
+    public function getUpdatedAt(): DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTimeInterface $updatedAt
+     * @return Consent
+     */
+    public function setUpdatedAt(DateTimeInterface $updatedAt): Consent
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $this->setCreatedAt(new DateTimeImmutable());
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function setUpdateAtValue(): void
+    {
+        $this->setUpdatedAt(new DateTimeImmutable());
     }
 }

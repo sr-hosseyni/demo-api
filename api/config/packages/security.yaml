@@ -49,5 +49,5 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/docs, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI
         - { path: ^/authentication_token, roles: PUBLIC_ACCESS }
-        # - { path: ^/greeting, roles: PUBLIC_ACCESS }
+        - { path: ^/greeting, roles: PUBLIC_ACCESS }
         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }

@@ -1,4 +1,15 @@
 #!/bin/bash
-
-echo "docker compose exec $1 ${*:2}"
-docker compose exec $1 ${*:2}
+case $1 in
+  *)
+    echo "docker compose exec php bin/console ${*:1}"
+    docker compose exec php bin/console ${*:1}
+  ;;
+  'help')
+echo <<< HELP
+Usage:
+  make:migration
+  migrate
+HELP
+  ;;
+esac
+exit 0

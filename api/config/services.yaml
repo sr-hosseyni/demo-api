@@ -30,3 +30,9 @@ services:
 
     App\DataFixtures\Providers\HashPasswordProvider:
         tags: [ { name: nelmio_alice.faker.provider } ]
+
+    App\EventListener\SetCreatorOnPersist:
+        tags:
+            -
+                name: 'doctrine.event_listener'
+                event: 'prePersist'
