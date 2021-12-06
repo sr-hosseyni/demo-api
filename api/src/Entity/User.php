@@ -134,7 +134,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     #[ORM\PrePersist]
-    public function setUuidValue(LifecycleEventArgs $eventArgs)
+    public function setUuidValue()
     {
 //        $this->uuid = \Symfony\Polyfill\Uuid\Uuid::uuid_create();
         $this->uuid = Uuid::v4();
