@@ -14,25 +14,20 @@ class AuthenticatedTokenService
         public JWTTokenManagerInterface $jwtManager
     )
     {
-//        if ($this->tokenStorageInterface->hasToken()) {
-//
-//        }
-//
-//        if ($this->jwtManager->decode($this->tokenStorageInterface->getToken())){
-//
-//        }
+        if ($this->tokenStorageInterface->getToken()) {
+            if ($data = $this->jwtManager->decode($this->tokenStorageInterface->getToken())){
+                $this->decodedJwtToken = $data;
+            }
+        }
     }
 
     public function getDecodedJwtToken(): array
     {
-        return $this->jwtManager->decode($this->tokenStorageInterface->getToken()) ;
+        return $this->decodedJwtToken;
     }
 
     public function getUUID(): string
     {
-        /**
-         * @todo Implement encoding user uuid in JTW token
-         */
-        return 'asdft-plmki-mnbgw-rgbvf-zqplm';
+        return $this->decodedJwtToken['uuid'];
     }
 }

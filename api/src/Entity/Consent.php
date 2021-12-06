@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeInterface;
@@ -18,8 +19,8 @@ class Consent
     #[ORM\GeneratedValue]
     private int $id;
 
-    #[ORM\Column(type: 'guid')]
-    private string $uuid;
+    #[ORM\Column(type: 'uuid')]
+    private string $userUuid;
 
     #[ORM\Column(type: 'boolean')]
     private bool $consent;
@@ -31,9 +32,10 @@ class Consent
     private DateTimeInterface $time;
 
     #[ORM\ManyToOne(targetEntity: 'Contract', cascade: ["all"], fetch: "EAGER")]
-    private Contract $consentContract;
+    #[ApiProperty]
+    private Contract $contract;
 
-    #[ORM\Column(type: 'guid')]
+    #[ORM\Column(type: 'uuid')]
     private string $createdBy;
 
     #[ORM\Column(type: 'datetime')]
@@ -45,18 +47,6 @@ class Consent
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUuid(): ?string
-    {
-        return $this->uuid;
-    }
-
-    public function setUuid(string $uuid): self
-    {
-        $this->uuid = $uuid;
-
-        return $this;
     }
 
     public function getConsent(): ?bool
@@ -119,18 +109,6 @@ class Consent
         return $this;
     }
 
-    public function getConsentContract(): ?Contract
-    {
-        return $this->consentContract;
-    }
-
-    public function setConsentContract(?Contract $consentContract): self
-    {
-        $this->consentContract = $consentContract;
-
-        return $this;
-    }
-
     /**
      * @return DateTimeInterface
      */
@@ -161,5 +139,29 @@ class Consent
     public function setUpdateAtValue(): void
     {
         $this->setUpdatedAt(new DateTimeImmutable());
+    }
+
+    public function getUserUuid()
+    {
+        return $this->userUuid;
+    }
+
+    public function setUserUuid($userUuid): self
+    {
+        $this->userUuid = $userUuid;
+
+        return $this;
+    }
+
+    public function getContract(): ?Contract
+    {
+        return $this->contract;
+    }
+
+    public function setContract(?Contract $contract): self
+    {
+        $this->contract = $contract;
+
+        return $this;
     }
 }

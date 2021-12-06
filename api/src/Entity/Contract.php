@@ -68,7 +68,7 @@ class Contract
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $programmaticName;
 
-    #[ORM\Column(type: 'guid')]
+    #[ORM\Column(type: 'uuid')]
     #[ApiProperty(writable: false)]
     private string $createdBy;
 
