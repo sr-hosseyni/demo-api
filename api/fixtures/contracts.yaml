@@ -1,0 +1,9 @@
+App\Entity\Contract:
+    contract_sample:
+        companyName: 'cs'
+        contractStart: <(new \DateTime())>
+        consentRequiredOn: 'registration'
+        maxConsentDays: 365
+        mandatory: true
+        category: 'terms'
+        programmaticName: 'sample'

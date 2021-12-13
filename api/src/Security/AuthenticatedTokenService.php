@@ -30,4 +30,9 @@ class AuthenticatedTokenService
     {
         return $this->decodedJwtToken['uuid'];
     }
+
+    public function isAuthenticated()
+    {
+        return !is_null($this->tokenStorageInterface->getToken());
+    }
 }

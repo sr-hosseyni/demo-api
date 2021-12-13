@@ -4,6 +4,9 @@ case $1 in
     docker compose exec php composer ${*:2}
   ;;
   'mm')
+    docker compose exec php bin/console make:migration ${*:2}
+  ;;
+  'mg')
     docker compose exec php bin/console doctrine:migrations:migrate ${*:2}
   ;;
   'cc')

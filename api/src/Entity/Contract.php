@@ -68,9 +68,12 @@ class Contract
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $programmaticName;
 
-    #[ORM\Column(type: 'uuid')]
+    /**
+     * CreatedBy Null means no creator or created by internal system, not via API endpoint
+     */
+    #[ORM\Column(type: 'uuid', nullable: true)]
     #[ApiProperty(writable: false)]
-    private string $createdBy;
+    private ?string $createdBy;
 
     #[ORM\Column(type: 'datetime')]
     #[ApiProperty(writable: false)]

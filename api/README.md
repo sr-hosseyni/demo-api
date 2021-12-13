@@ -1,6 +1,7 @@
 # API
 
 ## Useful links
+https://api-platform.com/docs/schema-generator/configuration/
 https://api-platform.com/docs/core/jwt/
 https://github.com/lexik/LexikJWTAuthenticationBundle
 https://symfony.com/doc/current/components/uid.html

@@ -26,6 +26,7 @@ class Consent
     #[ORM\Column(type: 'boolean')]
     private bool $consent;
 
+    // @todo can be set from contract record automatically, So could be optional
     #[ORM\Column(type: 'integer')]
     private int $validFor;
 
@@ -89,12 +90,12 @@ class Consent
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 

@@ -13,6 +13,10 @@ class SetCreatorOnPersist
 
     public function prePersist(LifecycleEventArgs $eventArgs): void
     {
+        if (!$this->tokenService->isAuthenticated()) {
+            return;
+        }
+
         $entity = $eventArgs->getObject();
 
         if (!method_exists($entity, 'setCreatedBy')) {
