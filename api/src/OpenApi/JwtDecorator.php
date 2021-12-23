@@ -58,6 +58,9 @@ final class JwtDecorator implements OpenApiFactoryInterface
                             ],
                         ],
                     ],
+                    '401' => [
+                        'description' => 'Invalid credentials.',
+                    ],
                 ],
                 summary: 'Get JWT token to login.',
                 requestBody: new Model\RequestBody(
