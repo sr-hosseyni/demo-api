@@ -40,6 +40,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column(type: 'string')]
+    #[ApiProperty(readable: false, writable: false)]
     private string $password;
 
     public function getId(): ?int
